@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 
 const HERO_IMAGES = [
@@ -26,10 +26,12 @@ export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0);
   const totalSlides = HERO_IMAGES.length;
 
-  const prevSlide = () =>
+  const prevSlide = useCallback(() => {
     setActiveSlide((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
-  const nextSlide = () =>
+  }, [totalSlides]);
+  const nextSlide = useCallback(() => {
     setActiveSlide((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
+  }, [totalSlides]);
 
   // Auto-slide every 3 seconds
   useEffect(() => {
@@ -37,7 +39,7 @@ export default function Hero() {
       nextSlide();
     }, 3000);
     return () => clearInterval(timer);
-  }, [activeSlide]);
+  }, [nextSlide]);
 
   return (
     <section

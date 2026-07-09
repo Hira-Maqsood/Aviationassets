@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Aviation Assets — Aviation Training & Courses",
+  title: "Aviation Assets - Aviation Training & Courses",
   description:
     "Discover 1000+ aviation training courses and professional development programs. Aviation Assets is your gateway to the best pilot training, cabin crew certification, and aerospace education worldwide.",
   keywords: [
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "aerospace education",
   ],
   openGraph: {
-    title: "Aviation Assets — Aviation Training & Courses",
+    title: "Aviation Assets - Aviation Training & Courses",
     description:
       "Discover 1000+ aviation training courses and professional development programs.",
     type: "website",

@@ -120,7 +120,7 @@ const Footer = () => {
                 <div className="bg-white text-gray-800 rounded-md p-3 flex items-center justify-between w-[300px] border border-gray-200 shadow-sm">
                   <div className="flex items-center space-x-3">
                     <input type="checkbox" className="h-6 w-6 border-gray-300 rounded cursor-pointer" />
-                    <span className="text-sm font-medium">I'm not a robot</span>
+                    <span className="text-sm font-medium">I&apos;m not a robot</span>
                   </div>
                   <div className="flex flex-col items-center">
                     <RefreshCw className="h-7 w-7 text-blue-600 mb-1" />
