@@ -35,9 +35,11 @@ export default function Hero() {
   }, [totalSlides]);
 
   useEffect(() => {
-    const timer = window.setInterval(nextSlide, 3000);
+    const timer = window.setInterval(() => {
+      setActiveSlide((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
+    }, 3000);
     return () => window.clearInterval(timer);
-  }, [nextSlide]);
+  }, [totalSlides]);
 
   return (
     <section className="relative w-full overflow-hidden" aria-label="Hero banner">
