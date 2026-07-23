@@ -19,7 +19,7 @@ const HERO_IMAGES = [
   {
     src: "https://images.unsplash.com/photo-1517976487492-5750f3195933?q=80&w=2070&auto=format&fit=crop",
     alt: "Airport runway with airplanes",
-  }
+  },
 ];
 
 export default function Hero() {
@@ -29,24 +29,18 @@ export default function Hero() {
   const prevSlide = useCallback(() => {
     setActiveSlide((prev) => (prev === 0 ? totalSlides - 1 : prev - 1));
   }, [totalSlides]);
+
   const nextSlide = useCallback(() => {
     setActiveSlide((prev) => (prev === totalSlides - 1 ? 0 : prev + 1));
   }, [totalSlides]);
 
-  // Auto-slide every 3 seconds
   useEffect(() => {
-    const timer = setInterval(() => {
-      nextSlide();
-    }, 3000);
-    return () => clearInterval(timer);
+    const timer = window.setInterval(nextSlide, 3000);
+    return () => window.clearInterval(timer);
   }, [nextSlide]);
 
   return (
-    <section
-      className="relative w-full overflow-hidden"
-      aria-label="Hero banner"
-    >
-      {/* ── Background Image ── */}
+    <section className="relative w-full overflow-hidden" aria-label="Hero banner">
       <div className="relative h-[220px] sm:h-[260px] md:h-[300px] lg:h-[340px]">
         {HERO_IMAGES.map((img, index) => (
           <Image
@@ -55,24 +49,24 @@ export default function Hero() {
             alt={img.alt}
             fill
             priority={index === 0}
-            className={`object-cover object-center transition-opacity duration-1000 ${
-              index === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+            loading={index === 0 ? "eager" : "lazy"}
+            aria-hidden={index !== activeSlide}
+            className={`object-cover object-center transition-opacity duration-1000 motion-reduce:transition-none ${
+              index === activeSlide ? "z-10 opacity-100" : "z-0 opacity-0"
             }`}
-            quality={90}
+            quality={85}
             sizes="100vw"
           />
         ))}
 
-        {/* ── Dark gradient overlay ── */}
         <div
-          className="absolute inset-0 bg-gradient-to-b from-[#001A57]/60 via-[#001A57]/40 to-[#001A57]/80 z-10"
+          className="absolute inset-0 z-10 bg-gradient-to-b from-[#001A57]/60 via-[#001A57]/40 to-[#001A57]/80"
           aria-hidden="true"
         />
 
-        {/* ── "1000" sparkling text overlay on the image ── */}
-        <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+        <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
           <span
-            className="text-[80px] sm:text-[100px] md:text-[130px] lg:text-[160px] font-black tracking-wider text-transparent"
+            className="text-[80px] font-black tracking-wider text-transparent sm:text-[100px] md:text-[130px] lg:text-[160px]"
             style={{
               WebkitTextStroke: "2px rgba(0,170,255,0.5)",
               textShadow:
@@ -84,13 +78,12 @@ export default function Hero() {
           </span>
         </div>
 
-        {/* ── Bottom text band ── */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#001A57]/95 to-transparent pt-10 pb-4 px-4 text-center z-20">
-          <p className="text-sm sm:text-base md:text-lg text-white font-medium">
+        <div className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-[#001A57]/95 to-transparent px-4 pb-4 pt-10 text-center">
+          <p className="text-sm font-medium text-white sm:text-base md:text-lg">
             <span className="text-white">Aviation Assets</span>{" "}
             <span className="text-brand-blue-light italic">Now Offers Over</span>
           </p>
-          <p className="text-sm sm:text-base md:text-lg font-bold">
+          <p className="text-sm font-bold sm:text-base md:text-lg">
             <span className="text-brand-blue-light">1,000</span>{" "}
             <span className="text-white">
               Aviation Courses, Tailored to Meet Your Needs
@@ -98,10 +91,10 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* ── Carousel Arrows ── */}
         <button
+          type="button"
           onClick={prevSlide}
-          className="absolute left-2 sm:left-4 md:left-6 top-1/2 z-30 -translate-y-1/2 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full text-white/70 transition-all hover:text-white hover:scale-110"
+          className="absolute left-2 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-white/70 transition-all hover:scale-110 hover:text-white sm:left-4 sm:h-12 sm:w-12 md:left-6"
           aria-label="Previous slide"
         >
           <svg
@@ -121,8 +114,9 @@ export default function Hero() {
           </svg>
         </button>
         <button
+          type="button"
           onClick={nextSlide}
-          className="absolute right-2 sm:right-4 md:right-6 top-1/2 z-30 -translate-y-1/2 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full text-white/70 transition-all hover:text-white hover:scale-110"
+          className="absolute right-2 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full text-white/70 transition-all hover:scale-110 hover:text-white sm:right-4 sm:h-12 sm:w-12 md:right-6"
           aria-label="Next slide"
         >
           <svg

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const inter = Inter({
@@ -10,7 +11,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Aviation Assets - Aviation Training & Courses",
+  title: {
+    default: "Aviation Assets - Aviation Training & Courses",
+    template: "%s | Aviation Assets",
+  },
   description:
     "Discover 1000+ aviation training courses and professional development programs. Aviation Assets is your gateway to the best pilot training, cabin crew certification, and aerospace education worldwide.",
   keywords: [
@@ -34,7 +38,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="flex min-h-screen flex-col bg-[#f5f5f5] font-sans antialiased">
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
